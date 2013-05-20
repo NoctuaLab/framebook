@@ -10,18 +10,14 @@
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc.
     -->
-
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    
+    <android.support.v4.view.ViewPager
+    	android:id="@+id/pager"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
         android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
+        android:keepScreenOn="true" />
+    
     <!--
          This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows.
