@@ -14,10 +14,10 @@ public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
  @Override
  public Fragment getItem(int i) {
-     Fragment fragment = new DemoObjectFragment();
+     Fragment fragment = new PageFragment();
      Bundle args = new Bundle();
      // Our object is just an integer :-P
-     args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1);
+     args.putInt(PageFragment.ARG_OBJECT, i + 1);
      fragment.setArguments(args);
      return fragment;
  }
