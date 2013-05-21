@@ -1,4 +1,4 @@
-package com.noctualab.framebook.pager;
+package com.noctualab.framebook.slides;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,7 +19,7 @@ public class PageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         
     	// The last two arguments ensure LayoutParams are inflated properly.
-        View rootView = inflater.inflate(R.layout.fragment_page, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_slide_page, container, false);
 
         Bundle args = getArguments();
         String msg = Integer.toString(args.getInt(ARG_OBJECT));

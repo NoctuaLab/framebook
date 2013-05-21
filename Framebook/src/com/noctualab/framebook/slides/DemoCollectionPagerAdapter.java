@@ -1,4 +1,4 @@
-package com.noctualab.framebook.pager;
+package com.noctualab.framebook.slides;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

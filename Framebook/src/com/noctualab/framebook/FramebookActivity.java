@@ -1,15 +1,45 @@
 package com.noctualab.framebook;
 
-import android.app.Activity;
+import com.noctualab.framebook.slides.SlidePageFragment;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
-public class FramebookActivity extends Activity {
+public class FramebookActivity extends FragmentActivity {
+
+	/**
+	 * The number of pages (wizard steps) to show in this demo.
+	 */
+	private static final int NUM_PAGES = 5;
+
+	/**
+	 * The pager widget, which handles animation and allows swiping horizontally to access previous
+	 * and next wizard steps.
+	 */
+	private ViewPager mPager;
+
+	/**
+	 * The pager adapter, which provides the pages to the view pager widget.
+	 */
+	private PagerAdapter mPagerAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_framebook);
+
+
+		// Instantiate a ViewPager and a PagerAdapter.
+		mPager = (ViewPager) findViewById(R.id.pager);
+		mPagerAdapter = new SlidesPagerAdapter(getSupportFragmentManager());
+		mPager.setAdapter(mPagerAdapter);
+
 	}
 
 	@Override
@@ -19,87 +49,37 @@ public class FramebookActivity extends Activity {
 		return true;
 	}
 
-}
-
-/*	
-    DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
-    ViewPager viewPager;
-
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onBackPressed() {
+		if (mPager.getCurrentItem() == 0) {
+			// If the user is currently looking at the first step, allow the system to handle the
+			// Back button. This calls finish() on this activity and pops the back stack.
+			super.onBackPressed();
+		} else {
+			// Otherwise, select the previous step.
+			mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+		}
+	}
 
-		setContentView(R.layout.activity_framebook);
-		
-        // ViewPager and its adapters use support library
-        // fragments, so use getSupportFragmentManager.
-        mDemoCollectionPagerAdapter = new DemoCollectionPagerAdapter(getSupportFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(mDemoCollectionPagerAdapter);
 
-		final View controlsView = findViewById(R.id.fullscreen_content_controls);
+	/**
+	 * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
+	 * sequence.
+	 */
+	private class SlidesPagerAdapter extends FragmentStatePagerAdapter {
+		public SlidesPagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
 
-		// Set up an instance of SystemUiHider to control the system UI for
-		// this activity.
-		mSystemUiHider = SystemUiHider.getInstance(this, viewPager, HIDER_FLAGS);
-		mSystemUiHider.setup();
-		mSystemUiHider.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
-					// Cached values.
-					int mControlsHeight;
-					int mShortAnimTime;
+		@Override
+		public Fragment getItem(int position) {
+			return new SlidePageFragment();
+		}
 
-					@Override
-					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-					public void onVisibilityChange(boolean visible) {
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-							// If the ViewPropertyAnimator API is available
-							// (Honeycomb MR2 and later), use it to animate the
-							// in-layout UI controls at the bottom of the
-							// screen.
-							if (mControlsHeight == 0) {
-								mControlsHeight = controlsView.getHeight();
-							}
-							if (mShortAnimTime == 0) {
-								mShortAnimTime = getResources().getInteger(
-										android.R.integer.config_shortAnimTime);
-							}
-							controlsView
-									.animate()
-									.translationY(visible ? 0 : mControlsHeight)
-									.setDuration(mShortAnimTime);
-						} else {
-							// If the ViewPropertyAnimator APIs aren't
-							// available, simply show or hide the in-layout UI
-							// controls.
-							controlsView.setVisibility(visible ? View.VISIBLE
-									: View.GONE);
-						}
-
-						if (visible && AUTO_HIDE) {
-							// Schedule a hide().
-							delayedHide(AUTO_HIDE_DELAY_MILLIS);
-						}
-					}
-				});
-
-		// Set up the user interaction to manually show or hide the system UI.
-		viewPager.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if (TOGGLE_ON_CLICK) {
-					mSystemUiHider.toggle();
-				} else {
-					mSystemUiHider.show();
-				}
-			}
-		});
-
-		// Upon interacting with UI controls, delay any scheduled hide()
-		// operations to prevent the jarring behavior of controls going away
-		// while interacting with the UI.
-		findViewById(R.id.dummy_button).setOnTouchListener(
-				mDelayHideTouchListener);
+		@Override
+		public int getCount() {
+			return NUM_PAGES;
+		}
 	}
 
 }
-*/
