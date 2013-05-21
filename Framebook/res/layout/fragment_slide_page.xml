@@ -9,21 +9,17 @@
     android:background="@color/black_overlay"
     android:orientation="vertical">
 	
-    
-	
 	<TextView style="?android:textAppearanceMedium"
 	    android:padding="16dp"
 	    android:id="@+id/test1"
 	    android:lineSpacingMultiplier="1.2"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:text="@string/dummy_text" />
+	    android:text="@string/dummy_text"
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:keepScreenOn="true" />
 
-            <Button
-                android:id="@+id/dummy_button"
-                style="?buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="@string/dummy_button" />
 </LinearLayout>

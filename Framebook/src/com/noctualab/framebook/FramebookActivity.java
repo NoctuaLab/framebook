@@ -1,22 +1,14 @@
 package com.noctualab.framebook;
 
-import com.noctualab.framebook.slides.SlidePageFragment;
+import com.noctualab.framebook.fullscreen.FullscreenActivity;
+import com.noctualab.framebook.slides.SlidePagerAdapter;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
-public class FramebookActivity extends FragmentActivity {
-
-	/**
-	 * The number of pages (wizard steps) to show in this demo.
-	 */
-	private static final int NUM_PAGES = 5;
+public class FramebookActivity extends FullscreenActivity {
 
 	/**
 	 * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -32,12 +24,12 @@ public class FramebookActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_framebook);
+		//setContentView(R.layout.activity_framebook); //it's set in the  fullscreen activity
 
 
 		// Instantiate a ViewPager and a PagerAdapter.
 		mPager = (ViewPager) findViewById(R.id.pager);
-		mPagerAdapter = new SlidesPagerAdapter(getSupportFragmentManager());
+		mPagerAdapter = new SlidePagerAdapter(getSupportFragmentManager());
 		mPager.setAdapter(mPagerAdapter);
 
 	}
@@ -58,27 +50,6 @@ public class FramebookActivity extends FragmentActivity {
 		} else {
 			// Otherwise, select the previous step.
 			mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-		}
-	}
-
-
-	/**
-	 * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-	 * sequence.
-	 */
-	private class SlidesPagerAdapter extends FragmentStatePagerAdapter {
-		public SlidesPagerAdapter(FragmentManager fm) {
-			super(fm);
-		}
-
-		@Override
-		public Fragment getItem(int position) {
-			return new SlidePageFragment();
-		}
-
-		@Override
-		public int getCount() {
-			return NUM_PAGES;
 		}
 	}
 
